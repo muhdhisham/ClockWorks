@@ -5,7 +5,8 @@ let timerObj = {  //a new object is created
 }
 
 
-function soundAlarm() {   
+function soundAlarm() 
+{   
     
     let amount = 2; 
     let audio = new Audio("Timer_Sound_Effect.mp3"); //Audio() is an inbuild javascript object and takes the audio file as the input
@@ -20,4 +21,55 @@ function soundAlarm() {
     }
     
     
+
+
+
 }
+
+function updateValue(key,value){
+    if(value < 0){
+        value = 0;
+        console.log("Positive numbers only");
+    }
+    if (key == "seconds"){
+        if (value < 10){
+            value = "0" + value;
+        }
+
+        if(value > 59){
+            value = 59;
+        }
+        
+    }
+    $("#"+ key).html(value || 0);
+    timerObj[key] = value;
+
+    console.log("Min",timerObj.minutes);
+    console.log("Sec",timerObj.seconds);
+
+}
+
+(function detectChanges(key)       //self calling function here function is called immediately after the script is executed 
+{
+    let input = "#"+key+"-input";
+
+    $(input).change(function(){
+        updateValue(key, $(input).val());
+    });
+
+    $(input).keyup(function(){
+        updateValue(key, $(input).val());
+    });
+
+    return arguments.callee;
+
+})("minutes")("seconds");
+
+
+
+
+//can also be called as below
+/*function example(){
+
+}
+example();*/
