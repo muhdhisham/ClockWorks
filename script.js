@@ -65,8 +65,27 @@ function updateValue(key,value){
 
 })("minutes")("seconds");
 
+function startTimer()
+{
 
+}
 
+function stopTimer()
+{
+
+}
+
+function pauseTimer()
+{
+
+}
+// rest operator is being used
+// rest operator allows to pass as many arguments as we wish
+function buttonManager(...nums)
+{
+    console.log(nums);
+}
+buttonManager(43, 443,677,78,2,3)
 
 //can also be called as below
 /*function example(){
