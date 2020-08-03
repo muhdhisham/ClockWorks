@@ -67,23 +67,36 @@ function updateValue(key,value){
 
 function startTimer()
 {
-
+    buttonManager(["start",false],["stop",true],["pause",true]);
 }
 
 function stopTimer()
 {
-
+    buttonManager(["start",true],["stop",false],["pause",false]);
 }
 
 function pauseTimer()
 {
-
+    buttonManager(["start",true],["stop",true],["pause",false]);
 }
 // rest operator is being used
 // rest operator allows to pass as many arguments as we wish
-function buttonManager(...nums)
+// here buttonsArray will be an array of array, where inside array contain two elements eg["start",true]
+function buttonManager(...buttonsArray)
 {
-    console.log(nums);
+    for(let i=0; i < buttonsArray.length ; i++)
+    {
+        let button = "#" + buttonsArray[i][0] + "-button"; //this will give us id of each button
+        if(buttonsArray[i][1])
+        {
+            $(button).removeAttr("disabled");
+        }
+        else
+        {
+            $(button).attr("disabled","disabled");
+        }
+    }
+
 }
 buttonManager(43, 443,677,78,2,3)
 
