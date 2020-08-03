@@ -44,8 +44,6 @@ function updateValue(key,value){
     $("#"+ key).html(value || 0);
     timerObj[key] = value;
 
-    console.log("Min",timerObj.minutes);
-    console.log("Sec",timerObj.seconds);
 
 }
 
@@ -68,11 +66,13 @@ function updateValue(key,value){
 function startTimer()
 {
     buttonManager(["start",false],["stop",true],["pause",true]);
+    freezeInputs();
 }
 
 function stopTimer()
 {
     buttonManager(["start",true],["stop",false],["pause",false]);
+    unfreezeInputs();
 }
 
 function pauseTimer()
@@ -98,7 +98,20 @@ function buttonManager(...buttonsArray)
     }
 
 }
-buttonManager(43, 443,677,78,2,3)
+
+// this function user from inputing while time is running
+function freezeInputs()
+{
+    $("#minutes-input").attr("disabled","disabled");
+    $("#seconds-input").attr("disabled","disabled");
+}
+function unfreezeInputs()
+{
+    $("#minutes-input").removeAttr("disabled");
+    $("#seconds-input").removeAttr("disabled");
+}
+
+
 
 //can also be called as below
 /*function example(){
