@@ -20,10 +20,6 @@ function soundAlarm()
         setTimeout(playSound,1200*i);
     }
     
-    
-
-
-
 }
 
 function updateValue(key,value){
@@ -67,17 +63,48 @@ function startTimer()
 {
     buttonManager(["start",false],["stop",true],["pause",true]);
     freezeInputs();
+
+
+    // here interval is set to a function so that it repeats itself in that interval ie. 1000ms
+    timerObj.timerId = setInterval(function() {
+        timerObj.seconds--;         
+        if(timerObj.seconds < 0)
+        {
+            if(timerObj.minutes == 0)
+            {
+                soundAlarm();
+                return stopTimer();
+            }
+            timerObj.seconds = 59;
+            timerObj.minutes--;
+        }
+        
+        updateValue("minutes",timerObj.minutes);
+        updateValue("seconds",timerObj.seconds);
+
+    },1000)
+
 }
 
 function stopTimer()
 {
+    clearInterval(timerObj.timerId);    //stop storing in timerId 
     buttonManager(["start",true],["stop",false],["pause",false]);
     unfreezeInputs();
+    updateValue("minutes",$("#minutes-input").val());
+    updateValue("seconds",$("#seconds-input").val());
+
+    /*if the seconds is falsy or undefined set seconds to "0"
+    just 1 zero because earlier we checked if the value is less than 10, and if it is it will add an extra zero for you.
+    the seconds will be by default be undefined . Explicitily setting the seconds to 0 will prevent formats such as 1:0 when te timer expires*/
+    let seconds = $("#seconds-input").val() || "0";
+    updateValue("seconds",seconds);
 }
 
 function pauseTimer()
 {
     buttonManager(["start",true],["stop",true],["pause",false]);
+    clearInterval(timerObj.timerId);
 }
 // rest operator is being used
 // rest operator allows to pass as many arguments as we wish
