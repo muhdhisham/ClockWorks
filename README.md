@@ -1,1 +1,4 @@
-A timer made using html css and JavaScript
+># A Simple Timer made using HTML, CSS and JavaScript.
+
+<img src = "Screenshot.png">
+
